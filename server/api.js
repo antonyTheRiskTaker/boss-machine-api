@@ -33,4 +33,7 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
   }
 });
 
+// Update a single minion by id
+// TODO: continue from here
+
 module.exports = apiRouter;
