@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const app = require('../server');
 const apiRouter = express.Router();
@@ -34,6 +35,23 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
 });
 
 // Update a single minion by id
+apiRouter.put('/minions/:minionId', (req, res, next) => {
+  const minionInfo = req.body;
+  const minionId = req.minionId;
+
+  if (minionInfo.id !== minionId) {
+    res.status(404).send('Cannot find this minion');
+  }
+  
+  const updatedMinion = db.updateInstanceInDatabase('minions', minionInfo);
+  if (updatedMinion === null) {
+    res.status(500).send('Problematic inputs passed the helper function for updating.');
+  } else {
+    res.status(200).send(updatedMinion);
+  }
+});
+
+// Delete a single minion by id
 // TODO: continue from here
 
 module.exports = apiRouter;
