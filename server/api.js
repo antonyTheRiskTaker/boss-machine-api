@@ -62,4 +62,15 @@ apiRouter.delete('/minions/:minionId', (req, res, next) => {
   }
 });
 
+// Get an array of all ideas
+apiRouter.get('/ideas', (req, res, next) => {
+  const ideas = db.getAllFromDatabase('ideas');
+  
+  if (ideas !== null) {
+    res.status(200).send(ideas);
+  } else {
+    res.status(500).send();
+  }
+});
+
 module.exports = apiRouter;
