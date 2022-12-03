@@ -78,4 +78,8 @@ apiRouter.get('/ideas', (req, res, next) => {
   }
 });
 
+apiRouter.post('/ideas', (req, res, next) => {
+  // TODO: continue from here
+});
+
 module.exports = apiRouter;
