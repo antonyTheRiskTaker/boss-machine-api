@@ -41,6 +41,7 @@ apiRouter.post('/minions', (req, res, next) => {
 apiRouter.get('/minions/:minionId', (req, res, next) => {
   const minionId = req.minionId;
   const targetMinion = db.getFromDatabaseById(MINIONS, minionId);
+  
   if (targetMinion) {
     res.status(200).send(targetMinion);
   } else {
@@ -53,10 +54,10 @@ apiRouter.put('/minions/:minionId', (req, res, next) => {
   const minionInfo = req.body;
   const updatedMinion = db.updateInstanceInDatabase(MINIONS, minionInfo);
 
-  if (updatedMinion === null) {
-    res.status(500).send('Problematic inputs');
-  } else {
+  if (updatedMinion !== null) {
     res.status(200).send(updatedMinion);
+  } else {
+    res.status(500).send('Problematic inputs');
   }
 });
 
