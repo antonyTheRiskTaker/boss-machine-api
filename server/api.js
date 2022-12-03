@@ -12,7 +12,12 @@ apiRouter.param('minionId', (req, res, next, id) => {
 // Get an array of all minions.
 apiRouter.get('/minions', (req, res, next) => {
   const minions = db.getAllFromDatabase('minions');
-  res.status(200).send(minions);
+
+  if (minions !== null) {
+    res.status(200).send(minions);
+  } else {
+    res.status(500).send();
+  }
 });
 
 // Create a new minion and save it to the database.
@@ -65,7 +70,7 @@ apiRouter.delete('/minions/:minionId', (req, res, next) => {
 // Get an array of all ideas
 apiRouter.get('/ideas', (req, res, next) => {
   const ideas = db.getAllFromDatabase('ideas');
-  
+
   if (ideas !== null) {
     res.status(200).send(ideas);
   } else {
