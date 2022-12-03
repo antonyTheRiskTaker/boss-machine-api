@@ -6,6 +6,7 @@ const db = require('./db');
 // Database model type constants
 const MINIONS = 'minions';
 const IDEAS = 'ideas';
+const MEETINGS = 'meetings';
 
 // Middleware to extract the minionId parameter for further processing.
 apiRouter.param('minionId', (req, res, next, id) => {
@@ -105,5 +106,7 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
     res.status(500).send();
   }
 });
+
+
 
 module.exports = apiRouter;
