@@ -40,9 +40,9 @@ apiRouter.post('/minions', (req, res, next) => {
 // Get a single minion by id.
 apiRouter.get('/minions/:minionId', (req, res, next) => {
   const minionId = req.minionId;
-  const foundMinion = db.getFromDatabaseById(MINIONS, minionId);
-  if (foundMinion) {
-    res.status(200).send(foundMinion);
+  const targetMinion = db.getFromDatabaseById(MINIONS, minionId);
+  if (targetMinion) {
+    res.status(200).send(targetMinion);
   } else {
     res.status(404).send('Cannot find anyone with this ID.');
   }
