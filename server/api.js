@@ -107,10 +107,10 @@ apiRouter.put('/ideas/:ideaId', (req, res, next) => {
   const ideaInfo = req.body;
   const updatedIdea = db.updateInstanceInDatabase(IDEAS, ideaInfo);
 
-  if (updatedIdea === null) {
-    res.status(500).send('Problematic inputs');
-  } else {
+  if (updatedIdea !== null) {
     res.status(200).send(updatedIdea);
+  } else {
+    res.status(500).send('Problematic inputs');
   }
 });
 
