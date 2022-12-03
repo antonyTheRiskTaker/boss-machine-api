@@ -51,11 +51,6 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
 // Update a single minion by id
 apiRouter.put('/minions/:minionId', (req, res, next) => {
   const minionInfo = req.body;
-  const minionId = req.minionId;
-
-  if (minionInfo.id !== minionId) {
-    res.status(404).send('Cannot find this minion');
-  }
   
   const updatedMinion = db.updateInstanceInDatabase(MINIONS, minionInfo);
   if (updatedMinion === null) {
