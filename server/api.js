@@ -78,8 +78,11 @@ apiRouter.get('/ideas', (req, res, next) => {
   }
 });
 
+// Create a new idea and save it to the database
 apiRouter.post('/ideas', (req, res, next) => {
-  // TODO: continue from here
+  const newIdea = req.body;
+  const result = db.addToDatabase('ideas', newIdea);
+  res.status(201).send(result);
 });
 
 module.exports = apiRouter;
