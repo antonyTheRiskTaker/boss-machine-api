@@ -107,6 +107,9 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
   }
 });
 
-
+// Update a single idea by id
+apiRouter.put('/ideas/"ideaId', (req, res, next) => {
+  // TODO: continue from here
+});
 
 module.exports = apiRouter;
