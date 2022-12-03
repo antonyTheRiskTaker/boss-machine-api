@@ -1,4 +1,3 @@
-const e = require('express');
 const express = require('express');
 const app = require('../server');
 const apiRouter = express.Router();
@@ -52,6 +51,15 @@ apiRouter.put('/minions/:minionId', (req, res, next) => {
 });
 
 // Delete a single minion by id
-// TODO: continue from here
+apiRouter.delete('/minions/:minionId', (req, res, next) => {
+  const minionId = req.minionId;
+  const minionDeleted = db.deleteFromDatabasebyId('minions', minionId);
+
+  if (minionDeleted) {
+    res.status(204).send();
+  } else {
+    res.status(404).send();
+  }
+});
 
 module.exports = apiRouter;
