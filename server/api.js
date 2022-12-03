@@ -51,10 +51,10 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
 // Update a single minion by id
 apiRouter.put('/minions/:minionId', (req, res, next) => {
   const minionInfo = req.body;
-  
   const updatedMinion = db.updateInstanceInDatabase(MINIONS, minionInfo);
+
   if (updatedMinion === null) {
-    res.status(500).send('Problematic inputs passed the helper function for updating.');
+    res.status(500).send('Problematic inputs');
   } else {
     res.status(200).send(updatedMinion);
   }
@@ -103,8 +103,15 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
 });
 
 // Update a single idea by id
-apiRouter.put('/ideas/"ideaId', (req, res, next) => {
-  // TODO: continue from here
+apiRouter.put('/ideas/:ideaId', (req, res, next) => {
+  const ideaInfo = req.body;
+  const updatedIdea = db.updateInstanceInDatabase(IDEAS, ideaInfo);
+
+  if (updatedIdea === null) {
+    res.status(500).send('Problematic inputs');
+  } else {
+    res.status(200).send(updatedIdea);
+  }
 });
 
 module.exports = apiRouter;
