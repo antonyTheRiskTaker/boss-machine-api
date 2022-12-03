@@ -127,4 +127,9 @@ apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
   }
 });
 
+// Get an array of all meetings
+apiRouter.get('/meetings', (req, res, next) => {
+  // TODO: continue from here
+});
+
 module.exports = apiRouter;
