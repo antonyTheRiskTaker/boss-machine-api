@@ -41,7 +41,7 @@ apiRouter.post('/minions', (req, res, next) => {
 apiRouter.get('/minions/:minionId', (req, res, next) => {
   const minionId = req.minionId;
   const targetMinion = db.getFromDatabaseById(MINIONS, minionId);
-  
+
   if (targetMinion) {
     res.status(200).send(targetMinion);
   } else {
@@ -112,6 +112,18 @@ apiRouter.put('/ideas/:ideaId', (req, res, next) => {
     res.status(200).send(updatedIdea);
   } else {
     res.status(500).send('Problematic inputs');
+  }
+});
+
+// Delete a single idea by id
+apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
+  const ideaId = req.ideaId;
+  const ideaDeleted = db.deleteFromDatabasebyId(IDEAS, ideaId);
+
+  if (ideaDeleted) {
+    res.status(204).send();
+  } else {
+    res.status(404).send();
   }
 });
 
