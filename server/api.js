@@ -152,4 +152,7 @@ apiRouter.post('/meetings', (req, res, next) => {
   res.status(200).send(result);
 });
 
+// Delete all meetings from the database.
+// TODO: continue from here
+
 module.exports = apiRouter;
