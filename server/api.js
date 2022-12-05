@@ -129,7 +129,13 @@ apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
 
 // Get an array of all meetings
 apiRouter.get('/meetings', (req, res, next) => {
-  // TODO: continue from here
+  const meetings = db.getAllFromDatabase(MEETINGS);
+
+  if (meetings !== null) {
+    res.status(200).send(meetings);
+  } else {
+    res.status(500).send();
+  }
 });
 
 module.exports = apiRouter;
