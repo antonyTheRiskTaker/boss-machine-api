@@ -1,7 +1,13 @@
 const express = require('express');
 const app = require('../server');
 const apiRouter = express.Router();
-const db = require('./db');
+const {
+  getAllFromDatabase,
+  addToDatabase,
+  getFromDatabaseById,
+  updateInstanceInDatabase,
+  deleteFromDatabasebyId
+} = require('./db');
 
 // Database model type constants
 const MINIONS = 'minions';
@@ -21,7 +27,7 @@ apiRouter.param('ideaId', (req, res, next, id) => {
 
 // Get an array of all minions.
 apiRouter.get('/minions', (req, res, next) => {
-  const minions = db.getAllFromDatabase(MINIONS);
+  const minions = getAllFromDatabase(MINIONS);
 
   if (minions !== null) {
     res.status(200).send(minions);
@@ -33,14 +39,14 @@ apiRouter.get('/minions', (req, res, next) => {
 // Create a new minion and save it to the database.
 apiRouter.post('/minions', (req, res, next) => {
   const newMinion = req.body;
-  const result = db.addToDatabase(MINIONS, newMinion);
+  const result = addToDatabase(MINIONS, newMinion);
   res.status(201).send(result);
 });
 
 // Get a single minion by id.
 apiRouter.get('/minions/:minionId', (req, res, next) => {
   const minionId = req.minionId;
-  const targetMinion = db.getFromDatabaseById(MINIONS, minionId);
+  const targetMinion = getFromDatabaseById(MINIONS, minionId);
 
   if (targetMinion) {
     res.status(200).send(targetMinion);
@@ -52,7 +58,7 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
 // Update a single minion by id
 apiRouter.put('/minions/:minionId', (req, res, next) => {
   const minionInfo = req.body;
-  const updatedMinion = db.updateInstanceInDatabase(MINIONS, minionInfo);
+  const updatedMinion = updateInstanceInDatabase(MINIONS, minionInfo);
 
   if (updatedMinion !== null) {
     res.status(200).send(updatedMinion);
@@ -64,7 +70,7 @@ apiRouter.put('/minions/:minionId', (req, res, next) => {
 // Delete a single minion by id
 apiRouter.delete('/minions/:minionId', (req, res, next) => {
   const minionId = req.minionId;
-  const minionDeleted = db.deleteFromDatabasebyId(MINIONS, minionId);
+  const minionDeleted = deleteFromDatabasebyId(MINIONS, minionId);
 
   if (minionDeleted) {
     res.status(204).send();
@@ -75,7 +81,7 @@ apiRouter.delete('/minions/:minionId', (req, res, next) => {
 
 // Get an array of all ideas
 apiRouter.get('/ideas', (req, res, next) => {
-  const ideas = db.getAllFromDatabase(IDEAS);
+  const ideas = getAllFromDatabase(IDEAS);
 
   if (ideas !== null) {
     res.status(200).send(ideas);
@@ -87,14 +93,14 @@ apiRouter.get('/ideas', (req, res, next) => {
 // Create a new idea and save it to the database
 apiRouter.post('/ideas', (req, res, next) => {
   const newIdea = req.body;
-  const result = db.addToDatabase(IDEAS, newIdea);
+  const result = addToDatabase(IDEAS, newIdea);
   res.status(201).send(result);
 });
 
 // Get a single idea by id
 apiRouter.get('/ideas/:ideaId', (req, res, next) => {
   const ideaId = req.ideaId;
-  const targetIdea = db.getFromDatabaseById(IDEAS, ideaId);
+  const targetIdea = getFromDatabaseById(IDEAS, ideaId);
 
   if (targetIdea !== null) {
     res.status(200).send(targetIdea);
@@ -106,7 +112,7 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
 // Update a single idea by id
 apiRouter.put('/ideas/:ideaId', (req, res, next) => {
   const ideaInfo = req.body;
-  const updatedIdea = db.updateInstanceInDatabase(IDEAS, ideaInfo);
+  const updatedIdea = updateInstanceInDatabase(IDEAS, ideaInfo);
 
   if (updatedIdea !== null) {
     res.status(200).send(updatedIdea);
@@ -118,7 +124,7 @@ apiRouter.put('/ideas/:ideaId', (req, res, next) => {
 // Delete a single idea by id
 apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
   const ideaId = req.ideaId;
-  const ideaDeleted = db.deleteFromDatabasebyId(IDEAS, ideaId);
+  const ideaDeleted = deleteFromDatabasebyId(IDEAS, ideaId);
 
   if (ideaDeleted) {
     res.status(204).send();
@@ -129,7 +135,7 @@ apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
 
 // Get an array of all meetings
 apiRouter.get('/meetings', (req, res, next) => {
-  const meetings = db.getAllFromDatabase(MEETINGS);
+  const meetings = getAllFromDatabase(MEETINGS);
 
   if (meetings !== null) {
     res.status(200).send(meetings);
