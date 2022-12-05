@@ -9,7 +9,7 @@ const {
   deleteFromDatabasebyId
 } = require('./db');
 
-// Database model type constants
+// Database model type constants.
 const MINIONS = 'minions';
 const IDEAS = 'ideas';
 const MEETINGS = 'meetings';
@@ -55,7 +55,7 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
   }
 });
 
-// Update a single minion by id
+// Update a single minion by id.
 apiRouter.put('/minions/:minionId', (req, res, next) => {
   const minionInfo = req.body;
   const updatedMinion = updateInstanceInDatabase(MINIONS, minionInfo);
@@ -67,7 +67,7 @@ apiRouter.put('/minions/:minionId', (req, res, next) => {
   }
 });
 
-// Delete a single minion by id
+// Delete a single minion by id.
 apiRouter.delete('/minions/:minionId', (req, res, next) => {
   const minionId = req.minionId;
   const minionDeleted = deleteFromDatabasebyId(MINIONS, minionId);
@@ -79,7 +79,7 @@ apiRouter.delete('/minions/:minionId', (req, res, next) => {
   }
 });
 
-// Get an array of all ideas
+// Get an array of all ideas.
 apiRouter.get('/ideas', (req, res, next) => {
   const ideas = getAllFromDatabase(IDEAS);
 
@@ -90,14 +90,14 @@ apiRouter.get('/ideas', (req, res, next) => {
   }
 });
 
-// Create a new idea and save it to the database
+// Create a new idea and save it to the database.
 apiRouter.post('/ideas', (req, res, next) => {
   const newIdea = req.body;
   const result = addToDatabase(IDEAS, newIdea);
   res.status(201).send(result);
 });
 
-// Get a single idea by id
+// Get a single idea by id.
 apiRouter.get('/ideas/:ideaId', (req, res, next) => {
   const ideaId = req.ideaId;
   const targetIdea = getFromDatabaseById(IDEAS, ideaId);
@@ -109,7 +109,7 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
   }
 });
 
-// Update a single idea by id
+// Update a single idea by id.
 apiRouter.put('/ideas/:ideaId', (req, res, next) => {
   const ideaInfo = req.body;
   const updatedIdea = updateInstanceInDatabase(IDEAS, ideaInfo);
@@ -121,7 +121,7 @@ apiRouter.put('/ideas/:ideaId', (req, res, next) => {
   }
 });
 
-// Delete a single idea by id
+// Delete a single idea by id.
 apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
   const ideaId = req.ideaId;
   const ideaDeleted = deleteFromDatabasebyId(IDEAS, ideaId);
@@ -133,7 +133,7 @@ apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
   }
 });
 
-// Get an array of all meetings
+// Get an array of all meetings.
 apiRouter.get('/meetings', (req, res, next) => {
   const meetings = getAllFromDatabase(MEETINGS);
 
@@ -143,5 +143,7 @@ apiRouter.get('/meetings', (req, res, next) => {
     res.status(500).send();
   }
 });
+
+// Create a new meeting and save it to the database.
 
 module.exports = apiRouter;
