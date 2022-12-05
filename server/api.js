@@ -6,7 +6,8 @@ const {
   addToDatabase,
   getFromDatabaseById,
   updateInstanceInDatabase,
-  deleteFromDatabasebyId
+  deleteFromDatabasebyId,
+  createMeeting
 } = require('./db');
 
 // Database model type constants.
@@ -145,5 +146,10 @@ apiRouter.get('/meetings', (req, res, next) => {
 });
 
 // Create a new meeting and save it to the database.
+apiRouter.post('/meetings', (req, res, next) => {
+  const newMeeting = createMeeting();
+  const result = addToDatabase(MEETINGS, newMeeting);
+  res.status(200).send(result);
+});
 
 module.exports = apiRouter;
