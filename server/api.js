@@ -123,6 +123,7 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
 // Update a single idea by id.
 apiRouter.put('/ideas/:ideaId', (req, res, next) => {
   const ideaInfo = req.body;
+  // TODO: continue from here (add checkMillionDollarIdea function)
   const updatedIdea = updateInstanceInDatabase(IDEAS, ideaInfo);
 
   if (updatedIdea !== null) {
