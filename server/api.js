@@ -7,6 +7,7 @@ const {
   getFromDatabaseById,
   updateInstanceInDatabase,
   deleteFromDatabasebyId,
+  deleteAllFromDatabase,
   createMeeting
 } = require('./db');
 
@@ -153,6 +154,14 @@ apiRouter.post('/meetings', (req, res, next) => {
 });
 
 // Delete all meetings from the database.
-// TODO: continue from here
+apiRouter.delete('/meetings', (req, res, next) => {
+  const result = deleteAllFromDatabase(MEETINGS);
+  
+  if (result !== null) {
+    res.status(204).send(result);
+  } else {
+    res.status(500).send();
+  }
+});
 
 module.exports = apiRouter;
