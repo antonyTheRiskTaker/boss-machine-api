@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const app = require('../server');
 const apiRouter = express.Router();
@@ -96,8 +97,14 @@ apiRouter.get('/ideas', (req, res, next) => {
 // Create a new idea and save it to the database.
 apiRouter.post('/ideas', (req, res, next) => {
   const newIdea = req.body;
-  const result = addToDatabase(IDEAS, newIdea);
-  res.status(201).send(result);
+  const { numWeeks, weeklyRevenue } = newIdea;
+  const isWorthyIdea = checkMillionDollarIdea(numWeeks, weeklyRevenue);
+  if (isWorthyIdea) {
+    const result = addToDatabase(IDEAS, newIdea);
+    res.status(201).send(result);
+  } else {
+    res.status(400).send('Make sure your idea is at least worth $1 million!');
+  }
 });
 
 // Get a single idea by id.
