@@ -1,4 +1,3 @@
-const e = require('express');
 const express = require('express');
 const app = require('../server');
 const apiRouter = express.Router();
@@ -14,73 +13,23 @@ const {
 } = require('./db');
 
 // Database model type constants.
-const MINIONS = 'minions';
+// const MINIONS = 'minions';
 const IDEAS = 'ideas';
 const MEETINGS = 'meetings';
 
+// Require routers for specific collections of resources
+const minionsRouter = require('./minionsRouter');
+apiRouter.use('/minions', minionsRouter);
+
 // Middleware to extract the minionId parameter for further processing.
-apiRouter.param('minionId', (req, res, next, id) => {
-  req.minionId = id;
-  next();
-});
+// apiRouter.param('minionId', (req, res, next, id) => {
+//   req.minionId = id;
+//   next();
+// });
 
 apiRouter.param('ideaId', (req, res, next, id) => {
   req.ideaId = id;
   next();
-});
-
-// Get an array of all minions.
-apiRouter.get('/minions', (req, res, next) => {
-  const minions = getAllFromDatabase(MINIONS);
-
-  if (minions !== null) {
-    res.status(200).send(minions);
-  } else {
-    res.status(500).send();
-  }
-});
-
-// Create a new minion and save it to the database.
-apiRouter.post('/minions', (req, res, next) => {
-  const newMinion = req.body;
-  const result = addToDatabase(MINIONS, newMinion);
-  res.status(201).send(result);
-});
-
-// Get a single minion by id.
-apiRouter.get('/minions/:minionId', (req, res, next) => {
-  const minionId = req.minionId;
-  const targetMinion = getFromDatabaseById(MINIONS, minionId);
-
-  if (targetMinion) {
-    res.status(200).send(targetMinion);
-  } else {
-    res.status(404).send('Cannot find anyone with this ID.');
-  }
-});
-
-// Update a single minion by id.
-apiRouter.put('/minions/:minionId', (req, res, next) => {
-  const minionInfo = req.body;
-  const updatedMinion = updateInstanceInDatabase(MINIONS, minionInfo);
-
-  if (updatedMinion !== null) {
-    res.status(200).send(updatedMinion);
-  } else {
-    res.status(500).send('Problematic inputs');
-  }
-});
-
-// Delete a single minion by id.
-apiRouter.delete('/minions/:minionId', (req, res, next) => {
-  const minionId = req.minionId;
-  const minionDeleted = deleteFromDatabasebyId(MINIONS, minionId);
-
-  if (minionDeleted) {
-    res.status(204).send();
-  } else {
-    res.status(404).send();
-  }
 });
 
 // Get an array of all ideas.
