@@ -103,7 +103,8 @@ apiRouter.post('/ideas', (req, res, next) => {
     const result = addToDatabase(IDEAS, newIdea);
     res.status(201).send(result);
   } else {
-    res.status(400).send('Make sure your idea is at least worth $1 million!');
+    const errorMessage = 'Make sure your idea is at least worth $1 million!';
+    res.status(400).send(errorMessage);
   }
 });
 
