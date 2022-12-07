@@ -43,13 +43,12 @@ ideasRouter.post('/', checkMillionDollarIdea, (req, res, next) => {
 
 // Get a single idea by id.
 ideasRouter.get('/:ideaId', (req, res, next) => {
-  const ideaId = req.ideaId;
-  const targetIdea = getFromDatabaseById(IDEAS, ideaId);
+  const idea = getFromDatabaseById(IDEAS, req.ideaId);
 
-  if (targetIdea !== null) {
-    res.status(200).send(targetIdea);
+  if (idea) {
+    res.status(200).send(idea);
   } else {
-    res.status(500).send();
+    res.status(404).send();
   }
 });
 
