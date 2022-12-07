@@ -56,7 +56,7 @@ minionsRouter.put('/:minionId', (req, res, next) => {
   if (updatedMinion !== null) {
     res.status(200).send(updatedMinion);
   } else {
-    res.status(500).send('Problematic inputs');
+    res.status(404).send('No minion with this ID found.');
   }
 });
 
