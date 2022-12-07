@@ -38,7 +38,7 @@ ideasRouter.post('/', (req, res, next) => {
     const result = addToDatabase(IDEAS, newIdea);
     res.status(201).send(result);
   } else {
-    const errorMessage = 'Make sure your idea is at least worth $1 million!';
+    const errorMessage = "Make sure it's worth at least $1 million!";
     res.status(400).send(errorMessage);
   }
 });
@@ -57,9 +57,16 @@ ideasRouter.get('/:ideaId', (req, res, next) => {
 
 // Update a single idea by id.
 ideasRouter.put('/:ideaId', (req, res, next) => {
-  const ideaInfo = req.body;
-  // TODO: continue from here (add checkMillionDollarIdea function)
-  const updatedIdea = updateInstanceInDatabase(IDEAS, ideaInfo);
+  const modifiedIdea = req.body;
+  const { numWeeks, weeklyRevenue } = modifiedIdea;
+  const isWorthyIdea = checkMillionDollarIdea(numWeeks, weeklyRevenue);
+
+  if (!isWorthyIdea) {
+    const errorMessage = "Make sure it's worth at least $1 million!";
+    res.status(500).send(errorMessage);
+  }
+
+  const updatedIdea = updateInstanceInDatabase(IDEAS, modifiedIdea);
 
   if (updatedIdea !== null) {
     res.status(200).send(updatedIdea);
