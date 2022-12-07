@@ -30,16 +30,14 @@ ideasRouter.get('/', (req, res, next) => {
 });
 
 // Create a new idea and save it to the database.
-ideasRouter.post('/', (req, res, next) => {
+ideasRouter.post('/', checkMillionDollarIdea, (req, res, next) => {
   const newIdea = req.body;
-  const { numWeeks, weeklyRevenue } = newIdea;
-  const isWorthyIdea = checkMillionDollarIdea(numWeeks, weeklyRevenue);
-  if (isWorthyIdea) {
-    const result = addToDatabase(IDEAS, newIdea);
+  const result = addToDatabase(IDEAS, newIdea);
+
+  if (result !== null) {
     res.status(201).send(result);
   } else {
-    const errorMessage = "Make sure it's worth at least $1 million!";
-    res.status(400).send(errorMessage);
+    res.status(500).send();
   }
 });
 
@@ -56,16 +54,8 @@ ideasRouter.get('/:ideaId', (req, res, next) => {
 });
 
 // Update a single idea by id.
-ideasRouter.put('/:ideaId', (req, res, next) => {
+ideasRouter.put('/:ideaId', checkMillionDollarIdea, (req, res, next) => {
   const modifiedIdea = req.body;
-  const { numWeeks, weeklyRevenue } = modifiedIdea;
-  const isWorthyIdea = checkMillionDollarIdea(numWeeks, weeklyRevenue);
-
-  if (!isWorthyIdea) {
-    const errorMessage = "Make sure it's worth at least $1 million!";
-    res.status(500).send(errorMessage);
-  }
-
   const updatedIdea = updateInstanceInDatabase(IDEAS, modifiedIdea);
 
   if (updatedIdea !== null) {
