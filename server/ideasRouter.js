@@ -54,13 +54,12 @@ ideasRouter.get('/:ideaId', (req, res, next) => {
 
 // Update a single idea by id.
 ideasRouter.put('/:ideaId', checkMillionDollarIdea, (req, res, next) => {
-  const modifiedIdea = req.body;
-  const updatedIdea = updateInstanceInDatabase(IDEAS, modifiedIdea);
+  const updatedIdea = updateInstanceInDatabase(IDEAS, req.body);
 
-  if (updatedIdea !== null) {
+  if (updatedIdea) {
     res.status(200).send(updatedIdea);
   } else {
-    res.status(500).send('Problematic inputs');
+    res.status(404).send();
   }
 });
 

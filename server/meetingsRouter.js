@@ -26,7 +26,7 @@ meetingsRouter.get('/', (req, res, next) => {
 meetingsRouter.post('/', (req, res, next) => {
   const newMeeting = createMeeting();
   const result = addToDatabase(MEETINGS, newMeeting);
-  res.status(200).send(result);
+  res.status(201).send(result);
 });
 
 // Delete all meetings from the database.
